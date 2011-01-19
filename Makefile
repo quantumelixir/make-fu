@@ -1,25 +1,28 @@
+CC=cc
+CFLAGS=-g -Wall -Werror -O0
+INCLUDE=-I./src/
+
 SRCDIR=src
 OBJDIR=build
 BINDIR=bin
 
-CFLAGS=-g -Wall -Werror -O0
-INCLUDE=-I./src/
-
 OBJECTS=$(addprefix $(OBJDIR)/, hello.o)
+TARGETS=$(addprefix $(BINDIR)/, main extra)
 
-all: $(BINDIR)/main postbuild
+all: $(TARGETS) postbuild
 
-$(BINDIR)/main: $(SRCDIR)/hello.h $(OBJECTS) | $(BINDIR)
-	cc $(CFLAGS) $(INCLUDE) $^ main.c -o $@
+.SECONDEXPANSION:
+$(TARGETS): $$(@F).c $(SRCDIR)/hello.h $(OBJECTS) | $(BINDIR)
+	$(CC) $(CFLAGS) $(INCLUDE) $^ -o $@
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
-	cc -c $^ -o $@
+	$(CC) -c $^ -o $@
 
 $(OBJDIR) $(BINDIR):
 	mkdir $@
 
-postbuild: $(BINDIR)/main
-	$<
+postbuild: $(TARGETS)
+	for i in $^; do ./$$i; done
 
 .PHONY: clean backup
 clean:
