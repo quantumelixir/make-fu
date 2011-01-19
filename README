@@ -1,1 +1,10 @@
 Understanding the workings of GNU Make
+
+The GNU Make Manual: http://www.gnu.org/software/make/manual/make.html
+Makefile Conventions: http://www.gnu.org/prep/standards/html_node/Makefile-Conventions.html#Makefile-Conventions
+Order-only Prerequisites: http://www.kolpackov.net/pipermail/notes/2004-January/000001.html
+Git's Makefile in its very first commit (Linus Torvalds): https://github.com/git/git/commit/e83c5163316f89bfbde7d9ab23ca2e25604af290#diff-0
+
+Oh, and before I forget,
+
+$ make
