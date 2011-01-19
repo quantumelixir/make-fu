@@ -1,25 +1,26 @@
 SRCDIR=src
 OBJDIR=build
+BINDIR=bin
 
 CFLAGS=-g -Wall -Werror -O0
 INCLUDE=-I./src/
 
 OBJECTS=$(addprefix $(OBJDIR)/, hello.o)
 
-all: $(OBJDIR)/main | postbuild
+all: $(BINDIR)/main postbuild
 
-$(OBJDIR)/main: $(SRCDIR)/hello.h $(OBJECTS)
-	cc $(CFLAGS) $(INCLUDE) $^ main.c -o $(OBJDIR)/main
+$(BINDIR)/main: $(SRCDIR)/hello.h $(OBJECTS) | $(BINDIR)
+	cc $(CFLAGS) $(INCLUDE) $^ main.c -o $@
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
 	cc -c $^ -o $@
 
-$(OBJDIR):
-	mkdir $(OBJDIR)
+$(OBJDIR) $(BINDIR):
+	mkdir $@
 
-postbuild: $(OBJDIR)/main
+postbuild: $(BINDIR)/main
 	$<
 
 .PHONY: clean
 clean:
-	rm -rf $(OBJDIR)
+	rm -rf $(OBJDIR) $(BINDIR)
