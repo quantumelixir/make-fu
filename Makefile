@@ -1,10 +1,10 @@
-CC=cc
-CFLAGS=-g -Wall -Werror -O0
-INCLUDE=-I./src/
-
 SRCDIR=src
 OBJDIR=build
 BINDIR=bin
+
+CC=cc
+CFLAGS=-g -Wall -Werror -O0
+INCLUDE=-I./$(SRCDIR)
 
 OBJECTS=$(addprefix $(OBJDIR)/, hello.o)
 TARGETS=$(addprefix $(BINDIR)/, main extra)
