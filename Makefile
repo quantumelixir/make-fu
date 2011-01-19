@@ -1,3 +1,4 @@
+PREFIX=/usr/local/bin
 SRCDIR=src
 OBJDIR=build
 BINDIR=bin
@@ -24,10 +25,16 @@ $(OBJDIR) $(BINDIR):
 postbuild: $(TARGETS)
 	for i in $^; do ./$$i; done
 
-.PHONY: clean backup
+.PHONY: clean backup install uninstall
 clean:
 	rm -rf $(OBJDIR) $(BINDIR)
 
 backup:
 	tar cvzf ../backup.tar.gz --exclude="*$(OBJDIR)" \
 		--exclude="*$(BINDIR)" .
+
+install:
+	cp $(TARGETS) $(PREFIX)
+
+uninstall:
+	rm $(addprefix $(PREFIX)/, $(notdir $(TARGETS)))
