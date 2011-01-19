@@ -21,6 +21,10 @@ $(OBJDIR) $(BINDIR):
 postbuild: $(BINDIR)/main
 	$<
 
-.PHONY: clean
+.PHONY: clean backup
 clean:
 	rm -rf $(OBJDIR) $(BINDIR)
+
+backup:
+	tar cvzf ../backup.tar.gz --exclude="*$(OBJDIR)" \
+		--exclude="*$(BINDIR)" .
